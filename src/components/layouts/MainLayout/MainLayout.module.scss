@@ -1,0 +1,14 @@
+@import '../../../assets/scss/vars';
+
+.mainLayout {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    min-height: 80px;
+    padding: 9px 22px;
+    background-color: $backgroundColorBase;
+  }
+
+  &__content {
+  }
+}

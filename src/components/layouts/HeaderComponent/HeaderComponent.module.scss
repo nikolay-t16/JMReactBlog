@@ -1,0 +1,16 @@
+@import '../../../assets/scss/vars';
+
+.headerComponent {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+
+  &__tittle {
+    font-size: $fontSizeH6;
+    color: $headingColor;
+    margin: 0;
+    font-weight: normal;
+    padding-bottom: 5px;
+  }
+}
