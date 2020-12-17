@@ -18,4 +18,11 @@ $backgroundColorBase: #ffffff;
 $fontSizeSmall: 12px;
 $fontSizeBase: 14px;
 $fontSizeH6: 18px;
-$fontSize: 20px;
+$fontSizeH5: 20px;
+
+$borderRadiusBase: 5px;
+
+%container {
+	background: $backgroundColorBase;
+	border-radius: $borderRadiusBase;
+}

@@ -4,7 +4,7 @@ import styles from './HeaderUser.module.scss';
 import HeaderNotAuthUser from './HeaderNotAuthUser/HeaderNotAuthUser';
 
 const HeaderUser = () => (
-  <div className={styles.headerUser}>
+  <div className={styles.root}>
     <HeaderNotAuthUser />
   </div>
 );
