@@ -5,11 +5,11 @@ import HeaderComponent from '../HeaderComponent/HeaderComponent';
 import RouterComponent from '../RouterComponent/RouterComponent';
 
 const MainLayout = () => (
-  <div>
+  <div className={style.root}>
     <div className={style.header}>
       <HeaderComponent />
     </div>
-    <div>
+    <div className={style.content}>
       <RouterComponent />
     </div>
   </div>

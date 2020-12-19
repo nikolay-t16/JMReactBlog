@@ -4,8 +4,8 @@ import styles from './ArticleList.module.scss';
 import ArticleListItem from './ArticleListItem/ArticleListItem';
 
 const ArticleList = () => (
-  <div className={styles.articleList}>
-    <div className={styles.articleList__item}>
+  <div>
+    <div className={styles.item}>
       <ArticleListItem />
     </div>
   </div>

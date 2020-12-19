@@ -35,3 +35,10 @@ body {
   font-style: normal;
   background-color: $mainBackground;
 }
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}

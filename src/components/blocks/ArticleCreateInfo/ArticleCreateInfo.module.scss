@@ -1,0 +1,19 @@
+@import '../../../assets/scss/vars';
+
+.root {
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: space-between;
+}
+
+.content {
+	&Name {
+		font-size: $fontSizeH6;
+		color: $textColor;
+	}
+
+	&Date {
+		font-size: $fontSizeSmall;
+		color: $textColorSecondary;
+	}
+}
