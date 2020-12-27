@@ -6,12 +6,12 @@ import RouterComponent from '../RouterComponent/RouterComponent';
 
 const MainLayout = () => (
   <div className={style.root}>
-    <div className={style.header}>
+    <header className={style.header}>
       <HeaderComponent />
-    </div>
-    <div className={style.content}>
+    </header>
+    <main className={style.content}>
       <RouterComponent />
-    </div>
+    </main>
   </div>
 );
 

@@ -7,7 +7,7 @@ $disabledColor: rgba(0, 0, 0, 0.35);
 $backgroundColor: #ebeef3;
 
 $primaryColor: #1890ff;
-$primaryColorHover: rgba(24,144,255, 0.75);
+$primaryColorHover: rgba(24, 144, 255, 0.75);
 $infoColor: #1890ff;
 $successColor: #52c41a;
 $successColorHover: rgba(82, 196, 26, 0.5);
@@ -24,6 +24,12 @@ $fontSizeH5: 20px;
 $borderRadiusBase: 5px;
 
 %container {
-	background: $backgroundColorBase;
-	border-radius: $borderRadiusBase;
+  background: $backgroundColorBase;
+  border-radius: $borderRadiusBase;
+}
+
+%cardContainer {
+  margin-top: 26px;
+  padding-bottom: 12px;
+  @extend %container;
 }

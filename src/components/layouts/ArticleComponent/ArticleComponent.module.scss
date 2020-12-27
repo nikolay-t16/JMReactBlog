@@ -1,0 +1,9 @@
+@import '../../../assets/scss/vars';
+
+.root {
+  @extend %cardContainer;
+}
+
+.body {
+  margin-left: 19px;
+}

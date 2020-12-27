@@ -1,0 +1,5 @@
+{
+  "articlesPerPage": 5,
+  "articleNameMaxLength": 8,
+  "articleShortTextMaxLength": 150
+}

@@ -1,26 +1,24 @@
 @import '../../../../../assets/scss/vars';
 
-
 .button {
-	font-size: $fontSizeH6;
-	line-height: initial;
-	height: auto;
-	padding: 13px 23px 15px 17px;
-	margin-top: 3px;
-	margin-left: 22px;
+  font-size: $fontSizeH6;
+  line-height: initial;
+  height: auto;
+  padding: 13px 23px 15px 17px;
+  margin-top: 3px;
+  margin-left: 22px;
 
-	&:first-child {
-		margin-left: 0;
-	}
+  &:first-child {
+    margin-left: 0;
+  }
 
-	&_theme_signUp {
-		color: $successColor;
-		border-color: $successColor;
+  &_theme_signUp {
+    color: $successColor;
+    border-color: $successColor;
 
-		&:hover {
-			color: $successColorHover;
-			border-color: $successColorHover;
-		}
-	}
+    &:hover {
+      color: $successColorHover;
+      border-color: $successColorHover;
+    }
+  }
 }
-

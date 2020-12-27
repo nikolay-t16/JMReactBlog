@@ -1,6 +1,48 @@
 @import '../../../assets/scss/vars';
 
 .item {
-	margin-top: 26px;
-	@extend %container;
+  margin-top: 26px;
+  @extend %container;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+
+  :global {
+    .ant-pagination-prev {
+      padding-right: 17px;
+    }
+
+    .ant-pagination-next {
+      padding-left: 17px;
+    }
+
+    .ant-pagination.mini .ant-pagination-item,
+    .ant-pagination.mini .ant-pagination-prev,
+    .ant-pagination.mini .ant-pagination-next {
+      height: 22px;
+      min-width: 22px;
+    }
+
+    .ant-pagination-item-active {
+      background: #1890ff;
+      border-radius: 4px;
+    }
+
+    .ant-pagination-item-active a {
+      color: white;
+    }
+
+    .ant-pagination-item {
+      font-style: normal;
+      font-weight: normal;
+      font-size: $fontSizeSmall;
+      text-align: center;
+
+      color: rgba(0, 0, 0, 0.65);
+    }
+  }
 }

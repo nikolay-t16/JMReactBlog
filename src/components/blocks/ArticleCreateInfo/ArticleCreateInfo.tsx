@@ -1,14 +1,25 @@
 import React from 'react';
+import { format } from 'date-fns';
 
 import styles from './ArticleCreateInfo.module.scss';
-import userIcon from '../../../assets/images/user_default.png';
+import userIconDefoult from '../../../assets/images/user_default.png';
+import settings from '../../../settings.json';
+import { subStringWithWords } from '../../../helpers/StringHelper';
 
-const ArticleCreateInfo = () => (
+type ArticleCreateInfoProps = {
+  name: string;
+  date: Date;
+  image: string | null;
+};
+
+const ArticleCreateInfo = ({ name, date, image }: ArticleCreateInfoProps) => (
   <div className={styles.root}>
-    <img src={userIcon} alt="user icon" />
+    <img className={styles.image} src={image || userIconDefoult} alt="user icon" />
     <div className={styles.content}>
-      <div className={styles.contentName}>John Doe</div>
-      <div className={styles.contentDate}>March 5, 2020</div>
+      <p className={styles.contentName} title={name.length < settings.articleNameMaxLength ? name : ''}>
+        {subStringWithWords(name, settings.articleNameMaxLength)}
+      </p>
+      <p className={styles.contentDate}>{format(new Date(date), 'MMM d, yyyy')}</p>
     </div>
   </div>
 );

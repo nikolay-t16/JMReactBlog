@@ -1,19 +1,29 @@
 @import '../../../assets/scss/vars';
 
 .root {
-	display: flex;
-	flex-direction: row-reverse;
-	justify-content: space-between;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.image {
+  max-width: 46px;
+  max-height: 46px;
+  border-radius: 50%;
 }
 
 .content {
-	&Name {
-		font-size: $fontSizeH6;
-		color: $textColor;
-	}
+  &Name {
+    font-size: $fontSizeH6;
+    color: $textColor;
+    margin: 0;
+    padding: 0;
+  }
 
-	&Date {
-		font-size: $fontSizeSmall;
-		color: $textColorSecondary;
-	}
+  &Date {
+    font-size: $fontSizeSmall;
+    color: $textColorSecondary;
+    padding: 0;
+    margin: 0;
+  }
 }
