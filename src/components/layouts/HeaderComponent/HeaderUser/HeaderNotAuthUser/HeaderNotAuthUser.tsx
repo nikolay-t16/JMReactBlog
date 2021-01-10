@@ -1,15 +1,16 @@
 import React from 'react';
-import { Button } from 'antd';
-import classNames from 'classnames';
+import { Link } from 'react-router-dom';
 
 import styles from './HeaderNotAuthUser.module.scss';
 
 const HeaderNotAuthUser = () => (
   <div>
-    <Button type="text" className={styles.button}>
+    <Link to="/sign-in" className={styles.signIn}>
       Sign In
-    </Button>
-    <Button className={classNames([styles.button, styles.button_theme_signUp])}>Sign Up</Button>
+    </Link>
+    <Link to="/sign-up" className={styles.signUp}>
+      Sign Up
+    </Link>
   </div>
 );
 

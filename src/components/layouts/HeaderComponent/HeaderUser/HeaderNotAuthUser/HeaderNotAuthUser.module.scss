@@ -1,24 +1,40 @@
 @import '../../../../../assets/scss/vars';
 
-.button {
+.signIn {
   font-size: $fontSizeH6;
   line-height: initial;
   height: auto;
   padding: 13px 23px 15px 17px;
   margin-top: 3px;
   margin-left: 22px;
+  color: rgba(0, 0, 0, 0.85);
 
-  &:first-child {
-    margin-left: 0;
+  &:hover {
+    color: inherit;
+    background: rgba(0, 0, 0, 0.018);
   }
 
-  &_theme_signUp {
-    color: $successColor;
-    border-color: $successColor;
+  &:global(.focus-visible) {
+    @extend %focus;
+  }
+}
 
-    &:hover {
-      color: $successColorHover;
-      border-color: $successColorHover;
-    }
+.signUp {
+  font-size: $fontSizeH6;
+  line-height: initial;
+  height: auto;
+  padding: 13px 23px 15px 17px;
+  margin-top: 3px;
+  margin-left: 22px;
+  color: $successColor;
+  border: 1px solid $successColor;
+
+  &:hover {
+    color: $successColorHover;
+    border-color: $successColorHover;
+  }
+
+  &:global(.focus-visible) {
+    @extend %focus;
   }
 }

@@ -12,4 +12,17 @@
   margin: 0;
   font-weight: normal;
   padding-bottom: 5px;
+
+  &Href{
+    color: inherit;
+
+    &:hover {
+      color: inherit;
+      opacity: 0.9;
+    }
+
+    &:global(.focus-visible) {
+      @extend %focus;
+    }
+  }
 }

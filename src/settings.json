@@ -1,4 +1,14 @@
 {
+  "validationForm": {
+    "userName": {
+      "min":3,
+      "max": 20
+    },
+    "password": {
+      "min":6,
+      "max": 40
+    }
+  },
   "articlesPerPage": 5,
   "articleNameMaxLength": 8,
   "articleShortTextMaxLength": 150

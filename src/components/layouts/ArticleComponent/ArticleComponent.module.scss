@@ -1,7 +1,9 @@
 @import '../../../assets/scss/vars';
 
 .root {
-  @extend %cardContainer;
+  margin-top: 26px;
+  padding-bottom: 12px;
+  @extend %container;
 }
 
 .body {

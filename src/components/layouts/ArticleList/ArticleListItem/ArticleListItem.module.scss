@@ -25,6 +25,19 @@
       font-size: $fontSizeH5;
       color: $infoColor;
       margin-bottom: 0;
+
+      &Href{
+        color: inherit;
+
+        &:hover {
+          color: inherit;
+          opacity: 0.9;
+        }
+
+        &:global(.focus-visible) {
+          @extend %focus;
+        }
+      }
     }
 
     &Like {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import { ApiProvider } from './components/contexts/apiContext';
 import MainLayout from './components/layouts/MainLayout/MainLayout';
@@ -10,7 +11,9 @@ function App() {
   return (
     <>
       <ApiProvider value={productionReady}>
-        <MainLayout />
+        <Router>
+          <MainLayout />
+        </Router>
       </ApiProvider>
     </>
   );

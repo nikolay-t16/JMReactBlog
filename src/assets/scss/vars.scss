@@ -28,8 +28,15 @@ $borderRadiusBase: 5px;
   border-radius: $borderRadiusBase;
 }
 
-%cardContainer {
-  margin-top: 26px;
-  padding-bottom: 12px;
+%containerForm {
+  width: 100%;
+  max-width: 384px;
+  padding: 48px 32px;
+  margin-top: 59px;
   @extend %container;
+}
+
+%focus {
+  box-shadow: 0 0 0 1px #4A90E2, 0 0 0 2px #2196f3;
+  border-radius: 4px;
 }

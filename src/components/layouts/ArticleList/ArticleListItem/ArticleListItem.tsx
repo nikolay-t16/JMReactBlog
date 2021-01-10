@@ -41,7 +41,9 @@ const ArticleListItem = ({
       <div className={styles.content}>
         <div className={styles.contentHeader}>
           <h2 className={styles.contentHeaderTittle}>
-            <Link to={`/articles/${slug}`}>{title}</Link>
+            <Link to={`/articles/${slug}`} className={styles.contentHeaderTittleHref}>
+              {title}
+            </Link>
           </h2>
           <button
             className={classNames([styles.contentHeaderLike, styles.contentHeaderLike_state_disabled])}
@@ -50,7 +52,7 @@ const ArticleListItem = ({
             {favoritesCount || null}
           </button>
         </div>
-        {tagList.length > 0 ? tagsNode : null}
+        {tagList.length > 0 && tagsNode}
         <p className={styles.contentText}>{description}</p>
       </div>
     </>
