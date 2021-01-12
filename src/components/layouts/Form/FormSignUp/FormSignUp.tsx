@@ -9,28 +9,35 @@ import FormHeader from '../../../blocks/Form/FormHeader/FormHeader';
 import FormInput from '../../../blocks/Form/FormInput/FormInput';
 import FormCheckbox from '../../../blocks/Form/FormCheckbox/FormCheckbox';
 import FormButton from '../../../blocks/Form/FormButton/FormButton';
+import { FetchingErrorsData } from '../../../../helpers/FetchingError';
 
-type FormData = {
-  userName: string;
+export type FormSignUpData = {
+  username: string;
   email: string;
   password: string;
   repeatPassword: string;
-  agreement: string;
+  agreement: boolean;
 };
 
-const FormSignUp = () => {
-  const { register, handleSubmit, watch, errors } = useForm<FormData>();
+type FormSignUpProps = {
+  onSubmit: (formData: FormSignUpData) => void;
+  errors: FetchingErrorsData;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const FormSignUp = ({ onSubmit, errors: fetchingErrors }: FormSignUpProps) => {
+  const { register, handleSubmit, watch, errors } = useForm<FormSignUpData>();
   const currentPassword: string = watch('password', '');
   const validationRules = {
-    userName: {
+    username: {
       required: 'Name is required',
       maxLength: {
-        value: settings.validationForm.userName.max,
-        message: `Name needs to be not longer then ${settings.validationForm.userName.max} characters`,
+        value: settings.validationForm.username.max,
+        message: `Name needs to be not longer then ${settings.validationForm.username.max} characters`,
       },
       minLength: {
-        value: settings.validationForm.userName.min,
-        message: `Name needs to be at least ${settings.validationForm.userName.min} characters`,
+        value: settings.validationForm.username.min,
+        message: `Name needs to be at least ${settings.validationForm.username.min} characters`,
       },
     },
     email: {
@@ -44,11 +51,11 @@ const FormSignUp = () => {
       required: 'Password is required',
       maxLength: {
         value: settings.validationForm.password.max,
-        message: `Password needs to be not longer then ${settings.validationForm.userName.max} characters`,
+        message: `Password needs to be not longer then ${settings.validationForm.username.max} characters`,
       },
       minLength: {
         value: settings.validationForm.password.min,
-        message: `Password needs to be not longer then ${settings.validationForm.userName.max} characters`,
+        message: `Password needs to be not longer then ${settings.validationForm.username.max} characters`,
       },
     },
     repeatPassword: {
@@ -58,7 +65,17 @@ const FormSignUp = () => {
       required: 'You need to agree to the terms before you can sign up',
     },
   };
-  const onSubmit = (...data: any) => console.log(data);
+
+  const getFieldEmailError = (field: 'email' | 'username', fieldLabel: string): string => {
+    if (errors[field]?.message) {
+      return errors[field]?.message || '';
+    }
+
+    if (fetchingErrors[field]) {
+      return `${fieldLabel} ${fetchingErrors[field]?.join(', ')}`;
+    }
+    return '';
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.root}>
@@ -69,9 +86,9 @@ const FormSignUp = () => {
         <FormInput
           label="Username"
           placeholder="some-username"
-          refValidation={register(validationRules.userName)}
-          error={errors.userName && errors.userName.message}
-          name="userName"
+          refValidation={register(validationRules.username)}
+          error={getFieldEmailError('username', 'Username')}
+          name="username"
         />
       </div>
       <div className={styles.field}>
@@ -79,7 +96,7 @@ const FormSignUp = () => {
           label="Email address"
           placeholder="alex@example.com"
           refValidation={register(validationRules.email)}
-          error={errors.email && errors.email.message}
+          error={getFieldEmailError('email', 'Email')}
           name="email"
         />
       </div>

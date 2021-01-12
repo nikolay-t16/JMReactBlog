@@ -21,7 +21,16 @@ export type ArticleData = {
   };
 };
 
+export type UserData = {
+  email: string;
+  token: string;
+  username: string;
+  bio: string;
+  image: string | null;
+};
+
 export type StateData = {
+  user: UserData[] | null;
   articles: ArticleData[];
   article: ArticleData | null;
   page: number;
@@ -34,9 +43,11 @@ export enum ActionsType {
   SET_PAGE = 'SET_PAGE',
   SET_ARTICLES = 'SET_ARTICLES',
   SET_ARTICLE = 'SET_ARTICLE',
+  SET_USER = 'SET_USER',
 }
 
 const defaultState: StateData = {
+  user: null,
   articles: [],
   article: null,
   page: 1,
@@ -56,6 +67,7 @@ const reducer = (state: StateData = defaultState, { type, payload }: ActionData)
       articles,
     }),
     [ActionsType.SET_ARTICLE]: ({ article }: { article: ArticleData }) => ({ ...state, article }),
+    [ActionsType.SET_USER]: ({ user }: { user: UserData | null }) => ({ ...state, user }),
   };
 
   const action = actions[type];

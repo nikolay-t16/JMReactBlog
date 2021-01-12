@@ -1,6 +1,6 @@
 {
   "validationForm": {
-    "userName": {
+    "username": {
       "min":3,
       "max": 20
     },

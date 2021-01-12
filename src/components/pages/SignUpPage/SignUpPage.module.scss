@@ -2,7 +2,18 @@
 
 .root {
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
+.alerts {
+	position: absolute;
+	width: 100%;
+	max-width: 500px;
+}
+.spin {
+	position: absolute;
+	margin: 12px auto 0;
+
 }
 
 .content {

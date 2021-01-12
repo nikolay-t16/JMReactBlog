@@ -1,4 +1,18 @@
-import { ArticleData } from '../store/reducer';
+import { ArticleData, UserData } from '../store/reducer';
+import FetchingError from './FetchingError';
+
+export type RegisterUserData = {
+  username: string;
+  email: string;
+  password: string;
+};
+
+export type FetchData = {
+  path: string;
+  getParams?: object;
+  method?: 'GET' | 'POST';
+  postParams?: object;
+};
 
 class ProductionReady {
   protected readonly API_PATH = 'https://conduit.productionready.io/api/';
@@ -6,6 +20,7 @@ class ProductionReady {
   protected readonly Paths = {
     API_FETCH_ARTICLES: 'articles',
     API_FETCH_ARTICLE: 'articles/',
+    API_REGISTRATION: 'users',
   };
 
   protected searchId: string | null = null;
@@ -19,12 +34,7 @@ class ProductionReady {
       .join('&');
   };
 
-  protected async fetch(
-    path: string,
-    getParams: object = {},
-    method: string = 'GET',
-    postParams: object = {},
-  ): Promise<any> {
+  protected async fetch({ path, getParams = {}, method = 'GET', postParams = {} }: FetchData): Promise<any> {
     const queryString = this.makeQueryString(getParams);
     const apiPath = `${this.API_PATH}${path}?${queryString}`;
     const params: any = { method };
@@ -36,6 +46,10 @@ class ProductionReady {
       throw new Error('connection error');
     });
     if (!response.ok) {
+      const body: any = await response.json();
+      if (body.errors) {
+        throw new FetchingError(body.errors);
+      }
       throw new Error(`Ошибка HTTP: ${response.status}`);
     }
     return response.json();
@@ -46,11 +60,22 @@ class ProductionReady {
     perPage: number,
   ): Promise<{ articles: ArticleData[]; articlesCount: number }> {
     const offset = (page - 1) * perPage;
-    return this.fetch(this.Paths.API_FETCH_ARTICLES, { offset, limit: perPage });
+    return this.fetch({
+      path: this.Paths.API_FETCH_ARTICLES,
+      getParams: { offset, limit: perPage },
+    });
   }
 
   public async fetchArticle(slug: string): Promise<ArticleData> {
-    return this.fetch(`${this.Paths.API_FETCH_ARTICLE}${slug}`).then(({ article }) => article);
+    return this.fetch({
+      path: `${this.Paths.API_FETCH_ARTICLE}${slug}`,
+    }).then(({ article }) => article);
+  }
+
+  public async registerUser(regUser: RegisterUserData): Promise<UserData> {
+    return this.fetch({ path: this.Paths.API_REGISTRATION, method: 'POST', postParams: { user: regUser } }).then(
+      ({ user }) => user,
+    );
   }
 }
 
