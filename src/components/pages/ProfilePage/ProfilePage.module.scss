@@ -1,0 +1,10 @@
+@import '../../../assets/scss/vars';
+
+.root {
+	display: flex;
+	justify-content: center;
+}
+
+.content {
+	@extend %containerForm;
+}
