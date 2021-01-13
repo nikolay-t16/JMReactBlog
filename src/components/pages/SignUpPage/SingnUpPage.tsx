@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Spin } from 'antd';
+import { Alert, Spin } from 'antd';
 import styles from './SignUpPage.module.scss';
 
 import FormSignUp, { FormSignUpData } from '../../layouts/Form/FormSignUp/FormSignUp';
@@ -11,7 +11,7 @@ import ProductionReady, { RegisterUserData } from '../../../helpers/ProductionRe
 import WithApi from '../../helpers/WithApi';
 import * as actions from '../../../store/actions';
 import { UserData } from '../../../store/reducer';
-import FetchingError, { FetchingErrorsData } from '../../../helpers/FetchingError';
+import ValidationError, { ValidationErrorsData } from '../../../helpers/ValidationError';
 
 type SignUpPageProps = {
   registerUser: (regUser: RegisterUserData) => Promise<UserData>;
@@ -20,18 +20,23 @@ type SignUpPageProps = {
 
 const SignUpPage = ({ setUser, registerUser }: SignUpPageProps) => {
   const [isFetching, setIsFetching] = useState(false);
-  const [fetchingError, setFetchingError] = useState<FetchingErrorsData>({});
+  const [validationError, setValidationError] = useState<ValidationErrorsData>({});
+  const [fetchingError, setFetchingError] = useState<string>('');
 
   const onSubmit = ({ username, email, password }: FormSignUpData) => {
-    setFetchingError({});
+    setValidationError({});
+    setFetchingError('');
     setIsFetching(true);
 
     registerUser({ username, email, password })
       .then((user) => {
         setUser({ user });
       })
-      .catch((error: FetchingError) => {
-        setFetchingError(error.errors);
+      .catch((error: ValidationError | Error) => {
+        if (error instanceof ValidationError) {
+          setValidationError(error.errors);
+        }
+        setFetchingError(error.message);
       })
       .finally(() => {
         setIsFetching(false);
@@ -41,8 +46,13 @@ const SignUpPage = ({ setUser, registerUser }: SignUpPageProps) => {
   return (
     <div className={styles.root}>
       {isFetching && <Spin className={styles.spin} size="large" />}
+      {fetchingError && (
+        <div className={styles.alerts}>
+          <Alert message={fetchingError} type="error" closable />
+        </div>
+      )}
       <div className={styles.content}>
-        <FormSignUp onSubmit={onSubmit} errors={fetchingError} />
+        <FormSignUp onSubmit={onSubmit} errors={validationError} />
       </div>
     </div>
   );

@@ -7,14 +7,19 @@ import styles from './FormSignIn.module.scss';
 import FormHeader from '../../../blocks/Form/FormHeader/FormHeader';
 import FormInput from '../../../blocks/Form/FormInput/FormInput';
 import FormButton from '../../../blocks/Form/FormButton/FormButton';
+import { FormSignUpData } from '../FormSignUp/FormSignUp';
 
-type FormData = {
+export type FormSignInData = {
   email: string;
   password: string;
 };
 
-const FormSignIn = () => {
-  const { register, handleSubmit, errors } = useForm<FormData>();
+type FormSignInProps = {
+  onSubmit: (formData: FormSignUpData) => void;
+};
+
+const FormSignIn = ({ onSubmit }: FormSignInProps) => {
+  const { register, handleSubmit, errors } = useForm<FormSignInData>();
   const validationRules = {
     email: {
       required: 'E-mail is required',
@@ -27,7 +32,6 @@ const FormSignIn = () => {
       required: 'Password is required',
     },
   };
-  const onSubmit = (...data: any) => console.log(data);
 
   return (
     <form className={styles.root} onSubmit={handleSubmit(onSubmit)}>

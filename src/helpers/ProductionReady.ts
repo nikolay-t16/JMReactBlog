@@ -1,8 +1,13 @@
 import { ArticleData, UserData } from '../store/reducer';
-import FetchingError from './FetchingError';
+import ValidationError from './ValidationError';
 
 export type RegisterUserData = {
   username: string;
+  email: string;
+  password: string;
+};
+
+export type LoginUserData = {
   email: string;
   password: string;
 };
@@ -21,6 +26,7 @@ class ProductionReady {
     API_FETCH_ARTICLES: 'articles',
     API_FETCH_ARTICLE: 'articles/',
     API_REGISTRATION: 'users',
+    API_LOGIN: 'users/login',
   };
 
   protected searchId: string | null = null;
@@ -46,9 +52,9 @@ class ProductionReady {
       throw new Error('connection error');
     });
     if (!response.ok) {
-      const body: any = await response.json();
-      if (body.errors) {
-        throw new FetchingError(body.errors);
+      const body: any = await response.json().catch(() => {});
+      if (body?.errors) {
+        throw new ValidationError(body.errors);
       }
       throw new Error(`Ошибка HTTP: ${response.status}`);
     }
@@ -74,6 +80,12 @@ class ProductionReady {
 
   public async registerUser(regUser: RegisterUserData): Promise<UserData> {
     return this.fetch({ path: this.Paths.API_REGISTRATION, method: 'POST', postParams: { user: regUser } }).then(
+      ({ user }) => user,
+    );
+  }
+
+  public async loginUser(loginUser: LoginUserData): Promise<UserData> {
+    return this.fetch({ path: this.Paths.API_LOGIN, method: 'POST', postParams: { user: loginUser } }).then(
       ({ user }) => user,
     );
   }

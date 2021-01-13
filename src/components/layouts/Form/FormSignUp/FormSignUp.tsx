@@ -9,7 +9,7 @@ import FormHeader from '../../../blocks/Form/FormHeader/FormHeader';
 import FormInput from '../../../blocks/Form/FormInput/FormInput';
 import FormCheckbox from '../../../blocks/Form/FormCheckbox/FormCheckbox';
 import FormButton from '../../../blocks/Form/FormButton/FormButton';
-import { FetchingErrorsData } from '../../../../helpers/FetchingError';
+import { ValidationErrorsData } from '../../../../helpers/ValidationError';
 
 export type FormSignUpData = {
   username: string;
@@ -21,10 +21,9 @@ export type FormSignUpData = {
 
 type FormSignUpProps = {
   onSubmit: (formData: FormSignUpData) => void;
-  errors: FetchingErrorsData;
+  errors: ValidationErrorsData;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const FormSignUp = ({ onSubmit, errors: fetchingErrors }: FormSignUpProps) => {
   const { register, handleSubmit, watch, errors } = useForm<FormSignUpData>();
   const currentPassword: string = watch('password', '');
@@ -66,7 +65,7 @@ const FormSignUp = ({ onSubmit, errors: fetchingErrors }: FormSignUpProps) => {
     },
   };
 
-  const getFieldEmailError = (field: 'email' | 'username', fieldLabel: string): string => {
+  const getFieldError = (field: 'email' | 'username', fieldLabel: string): string => {
     if (errors[field]?.message) {
       return errors[field]?.message || '';
     }
@@ -87,7 +86,7 @@ const FormSignUp = ({ onSubmit, errors: fetchingErrors }: FormSignUpProps) => {
           label="Username"
           placeholder="some-username"
           refValidation={register(validationRules.username)}
-          error={getFieldEmailError('username', 'Username')}
+          error={getFieldError('username', 'Username')}
           name="username"
         />
       </div>
@@ -96,7 +95,7 @@ const FormSignUp = ({ onSubmit, errors: fetchingErrors }: FormSignUpProps) => {
           label="Email address"
           placeholder="alex@example.com"
           refValidation={register(validationRules.email)}
-          error={getFieldEmailError('email', 'Email')}
+          error={getFieldError('email', 'Email')}
           name="email"
         />
       </div>
