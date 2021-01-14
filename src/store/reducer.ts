@@ -30,7 +30,7 @@ export type UserData = {
 };
 
 export type StateData = {
-  user: UserData[] | null;
+  user: UserData | null;
   articles: ArticleData[];
   article: ArticleData | null;
   page: number;

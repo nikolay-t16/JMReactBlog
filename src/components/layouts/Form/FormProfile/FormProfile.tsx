@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 
 import styles from './FormProfile.module.scss';
 
@@ -7,16 +8,32 @@ import FormHeader from '../../../blocks/Form/FormHeader/FormHeader';
 import FormInput from '../../../blocks/Form/FormInput/FormInput';
 import FormButton from '../../../blocks/Form/FormButton/FormButton';
 import settings from '../../../../settings.json';
+import { UserData } from '../../../../store/reducer';
 
-type FormData = {
-  username: string;
+export type FormProfileData = {
   email: string;
+  username: string;
+  image: string;
   password: string;
-  imageUrl: string;
 };
 
-const FormProfile = () => {
-  const { register, handleSubmit, errors } = useForm<FormData>();
+type FormProfileProps = {
+  user: UserData | null;
+  onSubmit: (user: FormProfileData) => void;
+};
+
+const FormProfile = ({ user, onSubmit }: FormProfileProps) => {
+  const { register, handleSubmit, errors } = useForm<FormProfileData>({
+    defaultValues: {
+      username: user?.username || '',
+      email: user?.email || '',
+      image: user?.image || '',
+    },
+  });
+  const history = useHistory();
+  if (user === null) {
+    history.push('/sign-in');
+  }
   const validationRules = {
     username: {
       required: 'Name is required',
@@ -37,16 +54,22 @@ const FormProfile = () => {
       },
     },
     password: {
-      required: 'Password is required',
+      maxLength: {
+        value: settings.validationForm.password.max,
+        message: `Password needs to be not longer then ${settings.validationForm.username.max} characters`,
+      },
+      minLength: {
+        value: settings.validationForm.password.min,
+        message: `Password needs to be not longer then ${settings.validationForm.username.max} characters`,
+      },
     },
-    imageUrl: {
+    image: {
       pattern: {
         value: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&'()*+,;=.]+$/,
         message: 'Image url should be a valid url (https://google.com)',
       },
     },
   };
-  const onSubmit = (...data: any) => console.log(data);
 
   return (
     <form className={styles.root} onSubmit={handleSubmit(onSubmit)}>
@@ -85,9 +108,9 @@ const FormProfile = () => {
         <FormInput
           label="Avatar image (url)"
           placeholder="Avatar image"
-          error={errors.imageUrl && errors.imageUrl.message}
-          refValidation={register(validationRules.imageUrl)}
-          name="imageUrl"
+          error={errors.image && errors.image.message}
+          refValidation={register(validationRules.image)}
+          name="image"
         />
       </div>
       <div className={styles.button}>

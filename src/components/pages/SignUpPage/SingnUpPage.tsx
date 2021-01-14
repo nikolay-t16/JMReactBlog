@@ -2,26 +2,32 @@ import React, { useState } from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import { useHistory } from 'react-router-dom';
 import { Alert, Spin } from 'antd';
+
 import styles from './SignUpPage.module.scss';
 
 import FormSignUp, { FormSignUpData } from '../../layouts/Form/FormSignUp/FormSignUp';
 import ProductionReady, { RegisterUserData } from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';
 import * as actions from '../../../store/actions';
-import { UserData } from '../../../store/reducer';
+import { StateData, UserData } from '../../../store/reducer';
 import ValidationError, { ValidationErrorsData } from '../../../helpers/ValidationError';
 
 type SignUpPageProps = {
   registerUser: (regUser: RegisterUserData) => Promise<UserData>;
   setUser: (params: { user: UserData | null }) => void;
+  user: UserData | null;
 };
 
-const SignUpPage = ({ setUser, registerUser }: SignUpPageProps) => {
+const SignUpPage = ({ setUser, registerUser, user: authUser }: SignUpPageProps) => {
   const [isFetching, setIsFetching] = useState(false);
   const [validationError, setValidationError] = useState<ValidationErrorsData>({});
   const [fetchingError, setFetchingError] = useState<string>('');
+  const history = useHistory();
+  if (authUser !== null) {
+    history.push('/profile');
+  }
 
   const onSubmit = ({ username, email, password }: FormSignUpData) => {
     setValidationError({});
@@ -29,8 +35,9 @@ const SignUpPage = ({ setUser, registerUser }: SignUpPageProps) => {
     setIsFetching(true);
 
     registerUser({ username, email, password })
-      .then((user) => {
-        setUser({ user });
+      .then(async (user) => {
+        await setUser({ user });
+        history.push('/');
       })
       .catch((error: ValidationError | Error) => {
         if (error instanceof ValidationError) {
@@ -64,7 +71,10 @@ const mapMethodsToProps = (productionReady: ProductionReady) => ({
 
 const SignUpPageWithApi = WithApi(mapMethodsToProps)(SignUpPage);
 
-export default connect(null, (dispatch) => {
-  const { setUser } = bindActionCreators(actions, dispatch);
-  return { setUser };
-})(SignUpPageWithApi);
+export default connect(
+  ({ user }: StateData) => ({ user }),
+  (dispatch) => {
+    const { setUser } = bindActionCreators(actions, dispatch);
+    return { setUser };
+  },
+)(SignUpPageWithApi);

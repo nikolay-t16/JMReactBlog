@@ -12,11 +12,19 @@ export type LoginUserData = {
   password: string;
 };
 
+export type EditUserData = {
+  email: string;
+  image: string;
+  password?: string;
+  username: string;
+};
+
 export type FetchData = {
   path: string;
   getParams?: object;
-  method?: 'GET' | 'POST';
+  method?: 'GET' | 'POST' | 'PUT';
   postParams?: object;
+  headers?: object;
 };
 
 class ProductionReady {
@@ -26,6 +34,7 @@ class ProductionReady {
     API_FETCH_ARTICLES: 'articles',
     API_FETCH_ARTICLE: 'articles/',
     API_REGISTRATION: 'users',
+    API_EDIT_PROFILE: 'user',
     API_LOGIN: 'users/login',
   };
 
@@ -40,13 +49,20 @@ class ProductionReady {
       .join('&');
   };
 
-  protected async fetch({ path, getParams = {}, method = 'GET', postParams = {} }: FetchData): Promise<any> {
+  protected async fetch({
+    path,
+    getParams = {},
+    method = 'GET',
+    postParams = {},
+    headers = {},
+  }: FetchData): Promise<any> {
     const queryString = this.makeQueryString(getParams);
     const apiPath = `${this.API_PATH}${path}?${queryString}`;
-    const params: any = { method };
+    const params: any = { method, headers };
+
     if (method !== 'GET') {
       params.body = JSON.stringify(postParams);
-      params.headers = { 'Content-Type': 'application/json;charset=utf-8' };
+      params.headers['Content-Type'] = 'application/json;charset=utf-8';
     }
     const response = await fetch(apiPath, params).catch(() => {
       throw new Error('connection error');
@@ -88,6 +104,15 @@ class ProductionReady {
     return this.fetch({ path: this.Paths.API_LOGIN, method: 'POST', postParams: { user: loginUser } }).then(
       ({ user }) => user,
     );
+  }
+
+  public async editUser(editUser: EditUserData, token: string): Promise<UserData> {
+    return this.fetch({
+      path: this.Paths.API_EDIT_PROFILE,
+      method: 'PUT',
+      postParams: { user: editUser },
+      headers: { Authorization: `Token ${token}` },
+    }).then(({ user }) => user);
   }
 }
 
