@@ -1,2 +1,66 @@
+@import '../../../../../assets/scss/vars';
+
 .root {
+	display: flex;
+	align-items: center;
+}
+
+.newArticle {
+	line-height: initial;
+	padding: 6px 10px;
+	margin-left: 22px;
+	color: $successColor;
+	border: 1px solid $successColor;
+	border-radius: 5px;
+	height: max-content;
+
+	&:hover {
+		color: $successColorHover;
+		border-color: $successColorHover;
+	}
+
+	&:global(.focus-visible) {
+		@extend %focus;
+	}
+}
+
+.user {
+	margin-left: 28px;
+	font-size: $fontSizeH6;
+	color: $headingColor;
+	display: inline-flex;
+	align-items: center;
+
+	&Img {
+		margin-left: 13px;
+		border-radius: 50%;
+	}
+
+	&:global(.focus-visible) {
+		@extend %focus;
+	}
+}
+
+.logOut {
+	font-size: $fontSizeH6;
+	line-height: initial;
+	height: auto;
+	padding: 13px 23px 15px 17px;
+	margin-left: 27px;
+	color: rgba(0, 0, 0, 0.75);
+	outline: none;
+	background: none;
+	border: 1px solid rgba(0, 0, 0, 0.75);
+	box-sizing: border-box;
+	border-radius: 5px;
+	cursor: pointer;
+
+	&:hover {
+		color: inherit;
+		background: rgba(0, 0, 0, 0.018);
+	}
+
+	&:global(.focus-visible) {
+		@extend %focus;
+	}
 }

@@ -1,4 +1,5 @@
 {
+  "userTokenParamName": "userToken",
   "validationForm": {
     "username": {
       "min":3,

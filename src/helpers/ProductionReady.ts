@@ -35,6 +35,7 @@ class ProductionReady {
     API_FETCH_ARTICLE: 'articles/',
     API_REGISTRATION: 'users',
     API_EDIT_PROFILE: 'user',
+    API_GET_AUTH_USER: 'user',
     API_LOGIN: 'users/login',
   };
 
@@ -111,6 +112,13 @@ class ProductionReady {
       path: this.Paths.API_EDIT_PROFILE,
       method: 'PUT',
       postParams: { user: editUser },
+      headers: { Authorization: `Token ${token}` },
+    }).then(({ user }) => user);
+  }
+
+  public async fetchAuthUser(token: string): Promise<UserData> {
+    return this.fetch({
+      path: this.Paths.API_GET_AUTH_USER,
       headers: { Authorization: `Token ${token}` },
     }).then(({ user }) => user);
   }

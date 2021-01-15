@@ -49,7 +49,7 @@ const ArticleListItem = ({
             className={classNames([styles.contentHeaderLike, styles.contentHeaderLike_state_disabled])}
             type="button"
           >
-            {favoritesCount || null}
+            {favoritesCount > 0 && <span className={styles.contentHeaderLikeCounter}>{favoritesCount}</span>}
           </button>
         </div>
         {tagList.length > 0 && tagsNode}
