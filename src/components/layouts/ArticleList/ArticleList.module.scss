@@ -1,5 +1,9 @@
 @import '../../../assets/scss/vars';
 
+.root {
+  width: 100%;
+}
+
 .item {
   margin-top: 26px;
   @extend %container;

@@ -1,4 +1,4 @@
-@import '../../../../assets/scss/vars';
+@import '../../../assets/scss/vars';
 
 .root {
 	font-family: Roboto, serif;
@@ -9,15 +9,19 @@
 }
 
 .field {
-	margin-bottom: 12px;
+	margin-bottom: 21px;
+}
 
-	&:last-child {
-		margin-bottom: 21px;
-	}
+.textArea {
+	height: max-content;
 }
 
 .button {
 	margin-bottom: 8px;
+
+	&Middle {
+		width: 319px;
+	}
 }
 
 .text {

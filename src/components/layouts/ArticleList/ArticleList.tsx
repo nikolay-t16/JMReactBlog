@@ -44,7 +44,7 @@ const ArticleList = ({ articles, articlesCount, page, setPage }: ArticleListProp
     </div>
   );
   return (
-    <div>
+    <div className={styles.root}>
       {articlesNode}
       {totalPages > 2 ? paginationNode : null}
     </div>

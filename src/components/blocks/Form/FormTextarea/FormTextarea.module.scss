@@ -20,6 +20,7 @@
 	border-radius: 4px;
 	padding: 8px 12px;
 	outline: none;
+	height: 100%;
 
 	&:global(.focus-visible) {
 		@extend %focus;
@@ -31,4 +32,8 @@
 			box-shadow: 0 0 0 1px $errorColor;
 		}
 	}
+}
+
+.textArea {
+	height: 168px;
 }

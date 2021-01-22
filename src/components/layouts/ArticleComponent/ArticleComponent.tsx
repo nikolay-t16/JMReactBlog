@@ -10,17 +10,18 @@ import ProductionReady from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';
 
 type ArticleComponentProps = {
+  deleteArticle: () => Promise<void>;
   article: ArticleData | null;
 };
 
-const ArticleComponent = ({ article }: ArticleComponentProps) => {
+const ArticleComponent = ({ article, deleteArticle }: ArticleComponentProps) => {
   if (article === null) {
     return <div className={styles.root}>Article not found</div>;
   }
 
   return (
     <article className={styles.root}>
-      <ArticleListItem article={article} shouldNotWrapAsArticle />
+      <ArticleListItem article={article} deleteArticle={deleteArticle} shouldNotWrapAsArticle showUserControls />
       <span className={styles.body}>{article.body}</span>
     </article>
   );

@@ -6,13 +6,17 @@
 
 .root {
   display: grid;
-  grid-template-columns: 72.5% 16.5%;
-  grid-column-gap: 11%;
+  grid-template-columns: 72.5% 17%;
+  grid-column-gap: 10.5%;
   padding: 13px 14px 13px 15px;
 }
 
 .header {
   padding-top: 1px;
+  &Info {
+    margin-left: 12px;
+    margin-bottom: 30px;
+  }
 }
 
 .content {

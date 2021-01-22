@@ -27,8 +27,6 @@ const ArticlesPage = ({ page, setArticles, fetchArticles }: ArticlesPageProps) =
       setArticles({ ...response });
       setFetchingError('');
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
       setFetchingError(error.message);
     } finally {
       setIsFetching(false);
@@ -41,22 +39,24 @@ const ArticlesPage = ({ page, setArticles, fetchArticles }: ArticlesPageProps) =
 
   if (isFetching) {
     return (
-      <div className={styles.spinner}>
-        <Spin size="large" />
+      <div className={styles.root}>
+        <div className={styles.spin}>
+          <Spin size="large" />
+        </div>
       </div>
     );
   }
 
   if (fetchingError) {
     return (
-      <div>
-        <Alert message={fetchingError} type="error" />
+      <div className={styles.root}>
+        <Alert message={fetchingError} type="error" closable />
       </div>
     );
   }
 
   return (
-    <div>
+    <div className={styles.root}>
       <ArticleList />
     </div>
   );

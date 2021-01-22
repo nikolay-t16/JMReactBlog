@@ -1,0 +1,68 @@
+@import '../../../../assets/scss/vars';
+
+.root {
+	display: flex;
+	align-items: flex-end;
+}
+
+.tag {
+	margin-bottom: 5px;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+}
+
+
+.button {
+	margin-left: 18px;
+	padding: 8px 36px;
+	border: 1px solid $primaryColor;
+	color: $primaryColor;
+	box-sizing: border-box;
+	border-radius: 4px;
+	background: none;
+	outline: none;
+	cursor: pointer;
+
+	&:hover {
+		border-color: $primaryColor;
+		color: $primaryColor;
+		opacity: 0.5;
+	}
+
+	&:global(.focus-visible) {
+		@include focus($primaryColor, 1px);
+	}
+}
+
+.input {
+	font-family: inherit;
+	font-size: 14px;
+	border: 1px solid #D9D9D9;
+	box-sizing: border-box;
+	border-radius: 4px;
+	padding: 8px 12px;
+	outline: none;
+	width: 300px;
+
+	&:global(.focus-visible) {
+		@extend %focus;
+	}
+}
+
+.remove {
+	border-color: $errorColor;
+	color: $errorColor;
+
+	&:hover {
+		border-color: $errorColor;
+		color: $errorColor;
+
+	}
+
+	&:global(.focus-visible) {
+		@include focus($errorColor, 1px);
+	}
+}
+

@@ -1,18 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import classNames from 'classnames';
+import { connect } from 'react-redux';
 
 import styles from './ArticleListItem.module.scss';
 import ArticleCreateInfo from '../../../blocks/ArticleCreateInfo/ArticleCreateInfo';
-import { ArticleData } from '../../../../store/reducer';
+import { ArticleData, StateData, UserData } from '../../../../store/reducer';
+import ArticleUserControls from '../../../blocks/ArticleUserControls/ArticleUserControls';
 
 type ArticleListItemProps = {
+  user: UserData | null;
   article: ArticleData;
   shouldNotWrapAsArticle?: boolean;
+  showUserControls?: boolean;
+  deleteArticle?: () => Promise<void>;
 };
 
 const ArticleListItem = ({
+  showUserControls,
+  user,
+  deleteArticle,
   article: {
     slug,
     title,
@@ -33,10 +40,18 @@ const ArticleListItem = ({
       ))}
     </ul>
   );
+
   const content = (
     <>
       <div className={styles.header}>
-        <ArticleCreateInfo key={slug} name={username} image={image} date={new Date(createdAt)} />
+        <div className={styles.headerInfo}>
+          <ArticleCreateInfo key={slug} name={username} image={image} date={new Date(createdAt)} />
+        </div>
+        {showUserControls && user?.username === username && (
+          <div className={styles.controls}>
+            <ArticleUserControls deleteArticle={deleteArticle} />
+          </div>
+        )}
       </div>
       <div className={styles.content}>
         <div className={styles.contentHeader}>
@@ -66,6 +81,8 @@ const ArticleListItem = ({
 
 ArticleListItem.defaultProps = {
   shouldNotWrapAsArticle: true,
+  showUserControls: false,
+  deleteArticle: async () => {},
 };
 
-export default ArticleListItem;
+export default connect(({ user }: StateData) => ({ user }))(ArticleListItem);

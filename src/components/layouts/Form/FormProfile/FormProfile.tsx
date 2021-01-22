@@ -2,13 +2,14 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 
-import styles from './FormProfile.module.scss';
+import styles from '../Form.module.scss';
 
 import FormHeader from '../../../blocks/Form/FormHeader/FormHeader';
 import FormInput from '../../../blocks/Form/FormInput/FormInput';
 import FormButton from '../../../blocks/Form/FormButton/FormButton';
 import settings from '../../../../settings.json';
 import { UserData } from '../../../../store/reducer';
+import { ValidationErrorsData } from '../../../../helpers/ValidationError';
 
 export type FormProfileData = {
   email: string;
@@ -20,9 +21,10 @@ export type FormProfileData = {
 type FormProfileProps = {
   user: UserData | null;
   onSubmit: (user: FormProfileData) => void;
+  errors: ValidationErrorsData;
 };
 
-const FormProfile = ({ user, onSubmit }: FormProfileProps) => {
+const FormProfile = ({ user, onSubmit, errors: fetchingErrors }: FormProfileProps) => {
   const { register, handleSubmit, errors } = useForm<FormProfileData>({
     defaultValues: {
       username: user?.username || '',
@@ -71,6 +73,17 @@ const FormProfile = ({ user, onSubmit }: FormProfileProps) => {
     },
   };
 
+  const getFieldError = (field: 'email', fieldLabel: string): string => {
+    if (errors[field]?.message) {
+      return errors[field]?.message || '';
+    }
+
+    if (fetchingErrors[field]) {
+      return `${fieldLabel} ${fetchingErrors[field]?.join(', ')}`;
+    }
+    return '';
+  };
+
   return (
     <form className={styles.root} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.header}>
@@ -89,7 +102,7 @@ const FormProfile = ({ user, onSubmit }: FormProfileProps) => {
         <FormInput
           label="Email address"
           placeholder="Email address"
-          error={errors.email && errors.email.message}
+          error={getFieldError('email', 'Email')}
           refValidation={register(validationRules.email)}
           name="email"
         />

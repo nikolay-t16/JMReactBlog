@@ -24,10 +24,10 @@
 	margin-top: 3px;
 	margin-right: 8px;
 	&Error {
-		border: 1px solid #F5222D;
+		border: 1px solid $errorColor;
 
 		&:global(.focus-visible) {
-			box-shadow: 0 0 0 1px #F5222D;
+			box-shadow: 0 0 0 1px $errorColor;
 			border-radius: 2px;
 		}
 	}
@@ -50,5 +50,5 @@
 
 .error {
 	font-size: 14px;
-	color: #F5222D;
+	color: $errorColor;
 }

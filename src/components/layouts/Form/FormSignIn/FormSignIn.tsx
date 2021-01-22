@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
-import styles from './FormSignIn.module.scss';
+import styles from '../Form.module.scss';
 
 import FormHeader from '../../../blocks/Form/FormHeader/FormHeader';
 import FormInput from '../../../blocks/Form/FormInput/FormInput';

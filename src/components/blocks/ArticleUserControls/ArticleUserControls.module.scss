@@ -1,0 +1,47 @@
+@import '../../../assets/scss/vars';
+
+.root {
+	display: flex;
+}
+
+.button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 6px 17px;
+
+	background: none;
+
+	border-radius: 4px;
+	outline: none;
+	cursor: pointer;
+
+	&Delete {
+		color: $errorColor;
+		border: 2px solid $errorColor;
+		margin-right: 12px;
+
+		&:hover {
+			opacity: 0.5;
+		}
+
+		&:global(.focus-visible) {
+			@include focus($errorColor, 1px);
+		}
+	}
+
+	&Edit {
+		color: $successColor;
+		border:2px solid $successColor;
+
+		&:hover {
+			opacity: 0.5;
+			color: $successColor;
+		}
+
+		&:global(.focus-visible) {
+			@include focus($successColor, 1px);
+		}
+	}
+
+}

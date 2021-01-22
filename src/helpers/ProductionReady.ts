@@ -22,9 +22,16 @@ export type EditUserData = {
 export type FetchData = {
   path: string;
   getParams?: object;
-  method?: 'GET' | 'POST' | 'PUT';
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
   postParams?: object;
   headers?: object;
+};
+
+export type EditArticleData = {
+  title: string;
+  description: string;
+  body: string;
+  tagList: string[];
 };
 
 class ProductionReady {
@@ -33,6 +40,9 @@ class ProductionReady {
   protected readonly Paths = {
     API_FETCH_ARTICLES: 'articles',
     API_FETCH_ARTICLE: 'articles/',
+    API_CREATE_ARTICLE: 'articles',
+    API_EDIT_ARTICLE: 'articles/',
+    API_DELETE_ARTICLE: 'articles/',
     API_REGISTRATION: 'users',
     API_EDIT_PROFILE: 'user',
     API_GET_AUTH_USER: 'user',
@@ -121,6 +131,32 @@ class ProductionReady {
       path: this.Paths.API_GET_AUTH_USER,
       headers: { Authorization: `Token ${token}` },
     }).then(({ user }) => user);
+  }
+
+  public async createArticle(newArticle: EditArticleData, token: string): Promise<ArticleData> {
+    return this.fetch({
+      method: 'POST',
+      postParams: { article: newArticle },
+      path: this.Paths.API_CREATE_ARTICLE,
+      headers: { Authorization: `Token ${token}` },
+    }).then(({ article }) => article);
+  }
+
+  public async editArticle(newArticle: EditArticleData, token: string, slug: string): Promise<ArticleData> {
+    return this.fetch({
+      method: 'PUT',
+      postParams: { article: newArticle },
+      path: `${this.Paths.API_EDIT_ARTICLE}${slug}`,
+      headers: { Authorization: `Token ${token}` },
+    }).then(({ article }) => article);
+  }
+
+  public async deleteArticle(token: string, slug: string): Promise<ArticleData> {
+    return this.fetch({
+      method: 'DELETE',
+      path: `${this.Paths.API_DELETE_ARTICLE}${slug}`,
+      headers: { Authorization: `Token ${token}` },
+    }).then(({ article }) => article);
   }
 }
 

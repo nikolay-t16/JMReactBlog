@@ -28,12 +28,25 @@ $borderRadiusBase: 5px;
   border-radius: $borderRadiusBase;
 }
 
-%containerForm {
+@mixin containerForm($width) {
   width: 100%;
-  max-width: 384px;
+  max-width: $width;
   padding: 48px 32px;
   margin-top: 59px;
   @extend %container;
+}
+
+%containerForm {
+  @include containerForm(384px)
+}
+
+%containerLargeForm {
+  @include containerForm(938px)
+}
+
+@mixin focus($color, $shadowWidth) {
+  box-shadow: 0 0 0 $shadowWidth $color;
+  border-radius: 4px;
 }
 
 %focus {

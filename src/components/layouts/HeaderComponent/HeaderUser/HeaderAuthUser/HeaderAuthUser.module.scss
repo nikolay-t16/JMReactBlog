@@ -20,7 +20,7 @@
 	}
 
 	&:global(.focus-visible) {
-		@extend %focus;
+		@include focus($successColor, 2px);
 	}
 }
 
@@ -47,10 +47,10 @@
 	height: auto;
 	padding: 13px 23px 15px 17px;
 	margin-left: 27px;
-	color: rgba(0, 0, 0, 0.75);
+	color: $textColor;
 	outline: none;
 	background: none;
-	border: 1px solid rgba(0, 0, 0, 0.75);
+	border: 1px solid $textColor;
 	box-sizing: border-box;
 	border-radius: 5px;
 	cursor: pointer;
@@ -61,6 +61,6 @@
 	}
 
 	&:global(.focus-visible) {
-		@extend %focus;
+		@include focus($textColor, 2px);
 	}
 }

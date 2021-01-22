@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { useHistory } from 'react-router-dom';
 import { Alert, Spin } from 'antd';
 import styles from './ProfilePage.module.scss';
 import FormProfile, { FormProfileData } from '../../layouts/Form/FormProfile/FormProfile';
@@ -20,13 +19,8 @@ type ProfilePageProps = {
 
 const ProfilePage = ({ user: authUser, setUser, editUser }: ProfilePageProps) => {
   const [isFetching, setIsFetching] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [validationError, setValidationError] = useState<ValidationErrorsData>({});
   const [fetchingError, setFetchingError] = useState<string>('');
-  const history = useHistory();
-  if (authUser === null) {
-    history.push('/sign-in');
-  }
 
   const onSubmit = ({ username, email, password, image }: FormProfileData) => {
     setValidationError({});
@@ -61,7 +55,7 @@ const ProfilePage = ({ user: authUser, setUser, editUser }: ProfilePageProps) =>
         </div>
       )}
       <div className={styles.content}>
-        <FormProfile onSubmit={onSubmit} user={authUser} />
+        <FormProfile onSubmit={onSubmit} user={authUser} errors={validationError} />
       </div>
     </div>
   );
