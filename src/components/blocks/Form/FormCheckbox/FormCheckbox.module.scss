@@ -17,7 +17,7 @@
 	width: 16px;
 	height: 16px;
 	background-color: white;
-	border: 1px solid #1890FF;
+	border: 1px solid #d9d9d9;
 	box-sizing: border-box;
 	border-radius: 2px;
 	flex-shrink: 0;
@@ -38,11 +38,13 @@
 	background-repeat: no-repeat;
 	background-position: 1px 2px;
 	background-color: #1890FF;
+	border-color: #1890FF;
 }
 
 .input:global(.focus-visible)~.checkbox {
 	@include focus(#1890FF, 1px);
 	background-color: white;
+	border-color: #1890FF;
 }
 
 .input:checked:global(.focus-visible)~.checkbox {
