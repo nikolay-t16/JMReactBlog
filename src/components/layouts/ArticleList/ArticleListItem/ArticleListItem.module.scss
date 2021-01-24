@@ -64,6 +64,15 @@
         color: $primaryColorHover;
       }
 
+      &Disabled {
+        opacity: 0.5;
+        cursor: initial;
+        &:hover {
+          @include element-color($textColor);
+          color: $textColor;
+        }
+      }
+
       &Counter {
         padding-left: 2px;
       }

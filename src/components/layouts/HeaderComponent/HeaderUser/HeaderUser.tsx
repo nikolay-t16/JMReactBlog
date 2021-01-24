@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import styles from './HeaderUser.module.scss';
 
 import HeaderNotAuthUser from './HeaderNotAuthUser/HeaderNotAuthUser';
-import { StateData, UserData } from '../../../../store/reducer';
+import { StateData, UserData } from '../../../../redux/reducer';
 import HeaderAuthUser from './HeaderAuthUser/HeaderAuthUser';
 
 type HeaderUserProps = {

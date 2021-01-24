@@ -6,8 +6,8 @@ import { bindActionCreators } from 'redux';
 import userHeaderDefault from '../../../../../assets/images/user_header_default.jpg';
 import styles from './HeaderAuthUser.module.scss';
 
-import { StateData, UserData } from '../../../../../store/reducer';
-import * as actions from '../../../../../store/actions';
+import { StateData, UserData } from '../../../../../redux/reducer';
+import * as actions from '../../../../../redux/actions';
 
 type HeaderAuthUserProps = {
   user: UserData | null;

@@ -5,10 +5,10 @@ import { Alert, Spin } from 'antd';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styles from './EditArticlePage.module.scss';
-import { ArticleData, StateData, UserData } from '../../../store/reducer';
+import { ArticleData, StateData, UserData } from '../../../redux/reducer';
 import ProductionReady from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';
-import * as actions from '../../../store/actions';
+import * as actions from '../../../redux/actions';
 import FormEditArticle from '../../layouts/Form/FormEditArticle/FormEditArticle';
 
 type EditArticlePageProps = {

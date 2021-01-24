@@ -8,18 +8,17 @@ import 'focus-visible';
 import 'antd/dist/antd.css';
 import './index.scss';
 
-import reducer from './store/reducer';
+import reducer from './redux/reducer';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { ApiProvider } from './components/contexts/apiContext';
-import ProductionReady from './helpers/ProductionReady';
+import { productionReady } from './helpers/ProductionReady';
 
 // @ts-ignore
 const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const composeEnhancers = typeof window === 'object' && reduxDevTools ? reduxDevTools({}) : compose;
 
 const store = createStore(reducer, composeEnhancers(applyMiddleware(reduxThunk)));
-const productionReady = new ProductionReady();
 
 ReactDOM.render(
   <React.StrictMode>

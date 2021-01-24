@@ -4,22 +4,22 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Spin } from 'antd';
-import { ApiProvider } from './components/contexts/apiContext';
 import MainLayout from './components/layouts/MainLayout/MainLayout';
 
 import ProductionReady from './helpers/ProductionReady';
 import { getUserToken } from './helpers/storage';
-import * as actions from './store/actions';
-import { UserData } from './store/reducer';
+import * as actions from './redux/actions';
+import { UserData } from './redux/reducer';
 
 import styles from './App.module.scss';
+import WithApi from './components/helpers/WithApi';
 
 type AppProps = {
   setUser: (params: { user: UserData | null }) => void;
+  fetchAuthUser: (token: string) => Promise<UserData>;
 };
 
-function App({ setUser }: AppProps) {
-  const [productionReady] = useState(new ProductionReady());
+function App({ setUser, fetchAuthUser }: AppProps) {
   const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
@@ -29,15 +29,15 @@ function App({ setUser }: AppProps) {
       return;
     }
     setIsFetching(true);
-    productionReady
-      .fetchAuthUser(userToken)
+
+    fetchAuthUser(userToken)
       .then((user) => {
         setUser({ user });
       })
       .finally(() => {
         setIsFetching(false);
       });
-  }, [productionReady, setUser]);
+  }, [fetchAuthUser, setUser]);
 
   if (isFetching) {
     return (
@@ -48,17 +48,19 @@ function App({ setUser }: AppProps) {
   }
 
   return (
-    <>
-      <ApiProvider value={productionReady}>
-        <Router>
-          <MainLayout />
-        </Router>
-      </ApiProvider>
-    </>
+    <Router>
+      <MainLayout />
+    </Router>
   );
 }
+
+const mapMethodsToProps = (productionReady: ProductionReady) => ({
+  fetchAuthUser: productionReady.fetchAuthUser.bind(productionReady),
+});
+
+const AppWithApi = WithApi(mapMethodsToProps)(App);
 
 export default connect(null, (dispatch) => {
   const { setUser } = bindActionCreators(actions, dispatch);
   return { setUser };
-})(App);
+})(AppWithApi);

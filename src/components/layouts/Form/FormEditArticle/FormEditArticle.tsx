@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Alert, Spin } from 'antd';
 import { bindActionCreators } from 'redux';
-import { ArticleData, StateData, UserData } from '../../../../store/reducer';
+import { ArticleData, StateData, UserData } from '../../../../redux/reducer';
 import FormArticle from '../FormArticle/FormArticle';
 
 import styles from './FormEditArticle.module.scss';
 
 import ProductionReady, { EditArticleData } from '../../../../helpers/ProductionReady';
 import WithApi from '../../../helpers/WithApi';
-import * as actions from '../../../../store/actions';
+import * as actions from '../../../../redux/actions';
 
 type FormEditArticleProps = {
   editArticle: (newArticle: EditArticleData, token: string, slug: string) => Promise<ArticleData>;

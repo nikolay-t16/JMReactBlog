@@ -1,10 +1,10 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
+import Markdown from 'react-markdown';
 
 import styles from './ArticleComponent.module.scss';
 import ArticleListItem from '../ArticleList/ArticleListItem/ArticleListItem';
-import { ArticleData, StateData } from '../../../store/reducer';
+import { ArticleData, StateData } from '../../../redux/reducer';
 
 import ProductionReady from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';
@@ -18,11 +18,12 @@ const ArticleComponent = ({ article, deleteArticle }: ArticleComponentProps) => 
   if (article === null) {
     return <div className={styles.root}>Article not found</div>;
   }
-
   return (
     <article className={styles.root}>
-      <ArticleListItem article={article} deleteArticle={deleteArticle} shouldNotWrapAsArticle showUserControls />
-      <span className={styles.body}>{article.body}</span>
+      <ArticleListItem article={article} deleteArticle={deleteArticle} showUserControls />
+      <div className={styles.body}>
+        <Markdown source={article.body} />
+      </div>
     </article>
   );
 };

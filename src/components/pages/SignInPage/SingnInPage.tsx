@@ -10,8 +10,8 @@ import styles from './SignInPage.module.scss';
 import FormSignIn, { FormSignInData } from '../../layouts/Form/FormSignIn/FormSignIn';
 import ProductionReady, { LoginUserData } from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';
-import * as actions from '../../../store/actions';
-import { StateData, UserData } from '../../../store/reducer';
+import * as actions from '../../../redux/actions';
+import { StateData, UserData } from '../../../redux/reducer';
 import ValidationError from '../../../helpers/ValidationError';
 
 type SignInPageProps = {

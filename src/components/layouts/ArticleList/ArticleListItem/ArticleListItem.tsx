@@ -3,23 +3,27 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 
+import { bindActionCreators } from 'redux';
 import styles from './ArticleListItem.module.scss';
 import ArticleCreateInfo from '../../../blocks/ArticleCreateInfo/ArticleCreateInfo';
-import { ArticleData, StateData, UserData } from '../../../../store/reducer';
+import { ArticleData, StateData, UserData } from '../../../../redux/reducer';
 import ArticleUserControls from '../../../blocks/ArticleUserControls/ArticleUserControls';
+import * as actions from '../../../../redux/actions';
 
 type ArticleListItemProps = {
   user: UserData | null;
   article: ArticleData;
-  shouldNotWrapAsArticle?: boolean;
+  inList?: boolean;
   showUserControls?: boolean;
   deleteArticle?: () => Promise<void>;
+  makeFavoriteArticle: (payload: { token: string; slug: string; setInList: boolean }) => void;
 };
 
 const ArticleListItem = ({
   showUserControls,
   user,
   deleteArticle,
+  makeFavoriteArticle,
   article: {
     slug,
     title,
@@ -27,9 +31,10 @@ const ArticleListItem = ({
     favoritesCount,
     createdAt,
     tagList,
+    favorited,
     author: { username, image },
   },
-  shouldNotWrapAsArticle,
+  inList,
 }: ArticleListItemProps) => {
   const tagsNode = (
     <ul className={styles.contentTags}>
@@ -40,6 +45,8 @@ const ArticleListItem = ({
       ))}
     </ul>
   );
+
+  const isDisabledLikeButton = user === null || favorited;
 
   const content = (
     <>
@@ -61,8 +68,14 @@ const ArticleListItem = ({
             </Link>
           </h2>
           <button
-            className={classNames([styles.contentHeaderLike, styles.contentHeaderLike_state_disabled])}
+            className={classNames(styles.contentHeaderLike, {
+              [styles.contentHeaderLikeDisabled]: isDisabledLikeButton,
+            })}
             type="button"
+            disabled={isDisabledLikeButton}
+            onClick={() => {
+              makeFavoriteArticle({ token: user?.token || '', slug, setInList: !!inList });
+            }}
           >
             {favoritesCount > 0 && <span className={styles.contentHeaderLikeCounter}>{favoritesCount}</span>}
           </button>
@@ -72,17 +85,22 @@ const ArticleListItem = ({
       </div>
     </>
   );
-  if (shouldNotWrapAsArticle) {
-    return <div className={styles.root}>{content}</div>;
+  if (inList) {
+    return <article className={styles.root}>{content}</article>;
   }
-
-  return <article className={styles.root}>{content}</article>;
+  return <div className={styles.root}>{content}</div>;
 };
 
 ArticleListItem.defaultProps = {
-  shouldNotWrapAsArticle: true,
+  inList: false,
   showUserControls: false,
   deleteArticle: async () => {},
 };
 
-export default connect(({ user }: StateData) => ({ user }))(ArticleListItem);
+export default connect(
+  ({ user }: StateData) => ({ user }),
+  (dispatch) => {
+    const { makeFavoriteArticle } = bindActionCreators(actions, dispatch);
+    return { makeFavoriteArticle };
+  },
+)(ArticleListItem);

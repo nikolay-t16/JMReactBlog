@@ -43,6 +43,8 @@ export enum ActionsType {
   SET_PAGE = 'SET_PAGE',
   SET_ARTICLES = 'SET_ARTICLES',
   SET_ARTICLE = 'SET_ARTICLE',
+  SET_FAVORITE_ARTICLE = 'SET_FAVORITE_ARTICLE',
+  SET_FAVORITE_ARTICLE_LIST = 'SET_FAVORITE_ARTICLE_LIST',
   SET_USER = 'SET_USER',
 }
 
@@ -67,6 +69,27 @@ const reducer = (state: StateData = defaultState, { type, payload }: ActionData)
       articles,
     }),
     [ActionsType.SET_ARTICLE]: ({ article }: { article: ArticleData }) => ({ ...state, article }),
+    [ActionsType.SET_FAVORITE_ARTICLE]: () => {
+      if (!state.article || state.article.favorited) {
+        return state;
+      }
+      const article = { ...state.article };
+      article.favorited = true;
+      article.favoritesCount += 1;
+      return { ...state, article };
+    },
+    [ActionsType.SET_FAVORITE_ARTICLE_LIST]: ({ slug }: { slug: string }) => {
+      const articleIndex = state.articles.findIndex((item) => item.slug === slug && !item.favorited);
+      if (articleIndex === -1) {
+        return state;
+      }
+      const articles = [...state.articles];
+      const article = { ...articles[articleIndex] };
+      articles[articleIndex] = article;
+      article.favorited = true;
+      article.favoritesCount += 1;
+      return { ...state, articles };
+    },
     [ActionsType.SET_USER]: ({ user }: { user: UserData | null }) => ({ ...state, user }),
   };
 

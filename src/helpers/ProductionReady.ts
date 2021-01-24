@@ -1,4 +1,4 @@
-import { ArticleData, UserData } from '../store/reducer';
+import { ArticleData, UserData } from '../redux/reducer';
 import ValidationError from './ValidationError';
 
 export type RegisterUserData = {
@@ -43,6 +43,7 @@ class ProductionReady {
     API_CREATE_ARTICLE: 'articles',
     API_EDIT_ARTICLE: 'articles/',
     API_DELETE_ARTICLE: 'articles/',
+    API_MAKE_FAVORITE_ARTICLE: 'articles/',
     API_REGISTRATION: 'users',
     API_EDIT_PROFILE: 'user',
     API_GET_AUTH_USER: 'user',
@@ -91,18 +92,27 @@ class ProductionReady {
   public async fetchArticles(
     page: number,
     perPage: number,
+    token: string,
   ): Promise<{ articles: ArticleData[]; articlesCount: number }> {
     const offset = (page - 1) * perPage;
-    return this.fetch({
+    const params: FetchData = {
       path: this.Paths.API_FETCH_ARTICLES,
       getParams: { offset, limit: perPage },
-    });
+    };
+    if (token) {
+      params.headers = { Authorization: `Token ${token}` };
+    }
+    return this.fetch(params);
   }
 
-  public async fetchArticle(slug: string): Promise<ArticleData> {
-    return this.fetch({
+  public async fetchArticle(slug: string, token: string): Promise<ArticleData> {
+    const params: FetchData = {
       path: `${this.Paths.API_FETCH_ARTICLE}${slug}`,
-    }).then(({ article }) => article);
+    };
+    if (token) {
+      params.headers = { Authorization: `Token ${token}` };
+    }
+    return this.fetch(params).then(({ article }) => article);
   }
 
   public async registerUser(regUser: RegisterUserData): Promise<UserData> {
@@ -158,6 +168,16 @@ class ProductionReady {
       headers: { Authorization: `Token ${token}` },
     }).then(({ article }) => article);
   }
+
+  public async makeFavoriteArticle(token: string, slug: string): Promise<void> {
+    return this.fetch({
+      method: 'POST',
+      path: `${this.Paths.API_MAKE_FAVORITE_ARTICLE}${slug}/favorite`,
+      headers: { Authorization: `Token ${token}` },
+    });
+  }
 }
+
+export const productionReady = new ProductionReady();
 
 export default ProductionReady;

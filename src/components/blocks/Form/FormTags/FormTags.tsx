@@ -35,16 +35,19 @@ const FormTags = ({ tags, add, remove, edit }: FormTagsProps) => {
 
   return (
     <div className={styles.root}>
-      <div className={styles.tags}>{tagsNodes}</div>
-      <button
-        className={styles.button}
-        type="button"
-        onClick={() => {
-          add();
-        }}
-      >
-        add
-      </button>
+      <p className={styles.labels}>Tags</p>
+      <div className={styles.inputs}>
+        <div className={styles.tags}>{tagsNodes}</div>
+        <button
+          className={styles.button}
+          type="button"
+          onClick={() => {
+            add();
+          }}
+        >
+          add
+        </button>
+      </div>
     </div>
   );
 };

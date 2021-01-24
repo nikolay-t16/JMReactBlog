@@ -7,8 +7,8 @@ import styles from './ArticleList.module.scss';
 import settings from '../../../settings.json';
 
 import ArticleListItem from './ArticleListItem/ArticleListItem';
-import * as actions from '../../../store/actions';
-import { ArticleData, StateData } from '../../../store/reducer';
+import * as actions from '../../../redux/actions';
+import { ArticleData, StateData } from '../../../redux/reducer';
 
 type ArticleListProps = {
   page: number;
@@ -24,7 +24,7 @@ const ArticleList = ({ articles, articlesCount, page, setPage }: ArticleListProp
 
   const articlesNode = articles.map((article) => (
     <div key={article.slug} className={styles.item}>
-      <ArticleListItem article={article} />
+      <ArticleListItem inList article={article} />
     </div>
   ));
   const totalPages = articlesCount / settings.articlesPerPage + 1;

@@ -9,8 +9,8 @@ import styles from './ArticlePage.module.scss';
 import ArticleComponent from '../../layouts/ArticleComponent/ArticleComponent';
 import ProductionReady from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';
-import { ArticleData, StateData, UserData } from '../../../store/reducer';
-import * as actions from '../../../store/actions';
+import { ArticleData, StateData, UserData } from '../../../redux/reducer';
+import * as actions from '../../../redux/actions';
 
 type ArticlePageProps = {
   slug: string;

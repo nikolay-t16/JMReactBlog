@@ -5,7 +5,7 @@ import { Alert, Spin } from 'antd';
 import { connect } from 'react-redux';
 import styles from './NewArticlePage.module.scss';
 import FormArticle from '../../layouts/Form/FormArticle/FormArticle';
-import { ArticleData, StateData, UserData } from '../../../store/reducer';
+import { ArticleData, StateData, UserData } from '../../../redux/reducer';
 import ProductionReady, { EditArticleData } from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';
 

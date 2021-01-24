@@ -5,25 +5,30 @@ import { Alert, Spin } from 'antd';
 
 import styles from './ArticlesPage.module.scss';
 import WithApi from '../../helpers/WithApi';
-import { ArticleData, StateData } from '../../../store/reducer';
-import * as actions from '../../../store/actions';
+import { ArticleData, StateData, UserData } from '../../../redux/reducer';
+import * as actions from '../../../redux/actions';
 import ProductionReady from '../../../helpers/ProductionReady';
 import settings from '../../../settings.json';
 import ArticleList from '../../layouts/ArticleList/ArticleList';
 
 type ArticlesPageProps = {
   page: number;
+  user: UserData | null;
   setArticles: (payload: { articles: ArticleData[]; articlesCount: number }) => void;
-  fetchArticles: (page: number, perPage: number) => Promise<{ articles: ArticleData[]; articlesCount: number }>;
+  fetchArticles: (
+    page: number,
+    perPage: number,
+    token: string,
+  ) => Promise<{ articles: ArticleData[]; articlesCount: number }>;
 };
 
-const ArticlesPage = ({ page, setArticles, fetchArticles }: ArticlesPageProps) => {
+const ArticlesPage = ({ page, user, setArticles, fetchArticles }: ArticlesPageProps) => {
   const [isFetching, setIsFetching] = useState(false);
   const [fetchingError, setFetchingError] = useState('');
   const loadPage = useCallback(async () => {
     try {
       setIsFetching(true);
-      const response = await fetchArticles(page, settings.articlesPerPage);
+      const response = await fetchArticles(page, settings.articlesPerPage, user?.token || '');
       setArticles({ ...response });
       setFetchingError('');
     } catch (error) {
@@ -31,7 +36,7 @@ const ArticlesPage = ({ page, setArticles, fetchArticles }: ArticlesPageProps) =
     } finally {
       setIsFetching(false);
     }
-  }, [fetchArticles, page, setArticles]);
+  }, [fetchArticles, page, setArticles, user]);
 
   useEffect(() => {
     loadPage();
@@ -68,7 +73,7 @@ const mapMethodsToProps = (productionReady: ProductionReady) => ({
 const ArticlesPageWithApi = WithApi(mapMethodsToProps)(ArticlesPage);
 
 export default connect(
-  ({ page }: StateData) => ({ page }),
+  ({ page, user }: StateData) => ({ page, user }),
   (dispatch) => {
     const { setArticles } = bindActionCreators(actions, dispatch);
     return { setArticles };

@@ -10,8 +10,8 @@ import styles from './SignUpPage.module.scss';
 import FormSignUp, { FormSignUpData } from '../../layouts/Form/FormSignUp/FormSignUp';
 import ProductionReady, { RegisterUserData } from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';
-import * as actions from '../../../store/actions';
-import { StateData, UserData } from '../../../store/reducer';
+import * as actions from '../../../redux/actions';
+import { StateData, UserData } from '../../../redux/reducer';
 import ValidationError, { ValidationErrorsData } from '../../../helpers/ValidationError';
 
 type SignUpPageProps = {

@@ -9,7 +9,7 @@ import FormHeader from '../../../blocks/Form/FormHeader/FormHeader';
 import FormInput from '../../../blocks/Form/FormInput/FormInput';
 import FormButton from '../../../blocks/Form/FormButton/FormButton';
 import FormTextarea from '../../../blocks/Form/FormTextarea/FormTextarea';
-import { ArticleData } from '../../../../store/reducer';
+import { ArticleData } from '../../../../redux/reducer';
 import { EditArticleData } from '../../../../helpers/ProductionReady';
 import FormTags from '../../../blocks/Form/FormTags/FormTags';
 
