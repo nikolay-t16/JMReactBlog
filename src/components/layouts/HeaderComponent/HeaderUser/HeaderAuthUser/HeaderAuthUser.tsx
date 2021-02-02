@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
-import userHeaderDefault from '../../../../../assets/images/user_header_default.jpg';
+import userHeaderDefault from '../../../../../assets/images/user_default.svg';
 import styles from './HeaderAuthUser.module.scss';
 
-import { StateData, UserData } from '../../../../../redux/reducer';
+import { StateData, UserData } from '../../../../../redux/d';
 import * as actions from '../../../../../redux/actions';
 
 type HeaderAuthUserProps = {

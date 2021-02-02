@@ -2,7 +2,7 @@ import React from 'react';
 import { format } from 'date-fns';
 
 import styles from './ArticleCreateInfo.module.scss';
-import userIconDefoult from '../../../assets/images/user_default.png';
+import userIconDefoult from '../../../assets/images/user_default.svg';
 import settings from '../../../settings.json';
 import { subStringWithWords } from '../../../helpers/StringHelper';
 

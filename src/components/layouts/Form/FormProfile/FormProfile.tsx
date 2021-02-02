@@ -8,7 +8,7 @@ import FormHeader from '../../../blocks/Form/FormHeader/FormHeader';
 import FormInput from '../../../blocks/Form/FormInput/FormInput';
 import FormButton from '../../../blocks/Form/FormButton/FormButton';
 import settings from '../../../../settings.json';
-import { UserData } from '../../../../redux/reducer';
+import { UserData } from '../../../../redux/d';
 import { ValidationErrorsData } from '../../../../helpers/ValidationError';
 
 export type FormProfileData = {

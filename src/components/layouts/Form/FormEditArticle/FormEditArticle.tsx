@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Alert, Spin } from 'antd';
 import { bindActionCreators } from 'redux';
-import { ArticleData, StateData, UserData } from '../../../../redux/reducer';
+import { ArticleData, StateData, UserData } from '../../../../redux/d';
 import FormArticle from '../FormArticle/FormArticle';
 
 import styles from './FormEditArticle.module.scss';

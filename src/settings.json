@@ -10,7 +10,7 @@
       "max": 40
     }
   },
-  "articlesPerPage": 5,
+  "articlesPerPage": 15,
   "articleNameMaxLength": 8,
   "articleShortTextMaxLength": 150
 }

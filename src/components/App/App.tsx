@@ -4,15 +4,15 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Spin } from 'antd';
-import MainLayout from './components/layouts/MainLayout/MainLayout';
+import MainLayout from '../layouts/MainLayout/MainLayout';
 
-import ProductionReady from './helpers/ProductionReady';
-import { getUserToken } from './helpers/storage';
-import * as actions from './redux/actions';
-import { UserData } from './redux/reducer';
+import ProductionReady from '../../helpers/ProductionReady';
+import { getUserToken } from '../../helpers/storage';
+import * as actions from '../../redux/actions';
+import { UserData } from '../../redux/d';
 
 import styles from './App.module.scss';
-import WithApi from './components/helpers/WithApi';
+import WithApi from '../helpers/WithApi';
 
 type AppProps = {
   setUser: (params: { user: UserData | null }) => void;

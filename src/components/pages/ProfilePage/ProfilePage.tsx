@@ -7,7 +7,7 @@ import styles from './ProfilePage.module.scss';
 import FormProfile, { FormProfileData } from '../../layouts/Form/FormProfile/FormProfile';
 import ProductionReady, { EditUserData } from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';
-import { StateData, UserData } from '../../../redux/reducer';
+import { StateData, UserData } from '../../../redux/d';
 import * as actions from '../../../redux/actions';
 import ValidationError, { ValidationErrorsData } from '../../../helpers/ValidationError';
 

@@ -9,7 +9,7 @@ import 'antd/dist/antd.css';
 import './index.scss';
 
 import reducer from './redux/reducer';
-import App from './App';
+import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { ApiProvider } from './components/contexts/apiContext';
 import { productionReady } from './helpers/ProductionReady';

@@ -4,9 +4,10 @@ import classNames from 'classnames';
 import { connect } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
+import { Popover } from 'antd';
 import styles from './ArticleListItem.module.scss';
 import ArticleCreateInfo from '../../../blocks/ArticleCreateInfo/ArticleCreateInfo';
-import { ArticleData, StateData, UserData } from '../../../../redux/reducer';
+import { ArticleData, StateData, UserData } from '../../../../redux/d';
 import ArticleUserControls from '../../../blocks/ArticleUserControls/ArticleUserControls';
 import * as actions from '../../../../redux/actions';
 
@@ -45,8 +46,37 @@ const ArticleListItem = ({
       ))}
     </ul>
   );
+  const isAuth = user !== null;
+  const isDisabledLikeButton = !isAuth || favorited;
 
-  const isDisabledLikeButton = user === null || favorited;
+  const likeButton = (
+    <button
+      className={classNames(styles.contentHeaderLike, {
+        [styles.contentHeaderLikeDisabled]: isDisabledLikeButton,
+      })}
+      type="button"
+      onClick={() => {
+        if (isDisabledLikeButton) {
+          return;
+        }
+        makeFavoriteArticle({ token: user?.token || '', slug, setInList: !!inList });
+      }}
+    >
+      {favoritesCount > 0 && <span className={styles.contentHeaderLikeCounter}>{favoritesCount}</span>}
+    </button>
+  );
+
+  const likeButtonWithPopover = (
+    <Popover
+      className={styles.likePopover}
+      placement="right"
+      content="not authorized"
+      arrowPointAtCenter
+      trigger="click"
+    >
+      {likeButton}
+    </Popover>
+  );
 
   const content = (
     <>
@@ -67,18 +97,8 @@ const ArticleListItem = ({
               {title}
             </Link>
           </h2>
-          <button
-            className={classNames(styles.contentHeaderLike, {
-              [styles.contentHeaderLikeDisabled]: isDisabledLikeButton,
-            })}
-            type="button"
-            disabled={isDisabledLikeButton}
-            onClick={() => {
-              makeFavoriteArticle({ token: user?.token || '', slug, setInList: !!inList });
-            }}
-          >
-            {favoritesCount > 0 && <span className={styles.contentHeaderLikeCounter}>{favoritesCount}</span>}
-          </button>
+          {isAuth}
+          {isAuth ? likeButton : likeButtonWithPopover}
         </div>
         {tagList.length > 0 && tagsNode}
         <p className={styles.contentText}>{description}</p>

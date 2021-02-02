@@ -5,7 +5,7 @@ import { Alert, Spin } from 'antd';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styles from './EditArticlePage.module.scss';
-import { ArticleData, StateData, UserData } from '../../../redux/reducer';
+import { ArticleData, StateData, UserData } from '../../../redux/d';
 import ProductionReady from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';
 import * as actions from '../../../redux/actions';

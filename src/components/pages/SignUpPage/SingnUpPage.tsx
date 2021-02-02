@@ -11,7 +11,7 @@ import FormSignUp, { FormSignUpData } from '../../layouts/Form/FormSignUp/FormSi
 import ProductionReady, { RegisterUserData } from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';
 import * as actions from '../../../redux/actions';
-import { StateData, UserData } from '../../../redux/reducer';
+import { StateData, UserData } from '../../../redux/d';
 import ValidationError, { ValidationErrorsData } from '../../../helpers/ValidationError';
 
 type SignUpPageProps = {

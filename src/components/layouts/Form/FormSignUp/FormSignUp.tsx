@@ -27,6 +27,7 @@ type FormSignUpProps = {
 const FormSignUp = ({ onSubmit, errors: fetchingErrors }: FormSignUpProps) => {
   const { register, handleSubmit, watch, errors } = useForm<FormSignUpData>();
   const currentPassword: string = watch('password', '');
+  const checked = watch('agreement', false);
   const validationRules = {
     username: {
       required: 'Name is required',
@@ -129,7 +130,7 @@ const FormSignUp = ({ onSubmit, errors: fetchingErrors }: FormSignUpProps) => {
         />
       </div>
       <div className={styles.button}>
-        <FormButton type="submit" label="Create" />
+        <FormButton type="submit" label="Create" disabled={!checked} />
       </div>
       <p className={styles.text}>
         Already have an account?{' '}

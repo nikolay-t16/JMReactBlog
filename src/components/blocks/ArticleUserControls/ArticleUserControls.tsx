@@ -7,7 +7,7 @@ import { Popconfirm } from 'antd';
 import styles from './ArticleUserControls.module.scss';
 import ProductionReady from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';
-import { StateData } from '../../../redux/reducer';
+import { StateData } from '../../../redux/d';
 
 type ArticleUserControlsProps = {
   slug: string;

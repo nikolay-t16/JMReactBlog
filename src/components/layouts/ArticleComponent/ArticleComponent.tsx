@@ -4,7 +4,7 @@ import Markdown from 'react-markdown';
 
 import styles from './ArticleComponent.module.scss';
 import ArticleListItem from '../ArticleList/ArticleListItem/ArticleListItem';
-import { ArticleData, StateData } from '../../../redux/reducer';
+import { ArticleData, StateData } from '../../../redux/d';
 
 import ProductionReady from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';

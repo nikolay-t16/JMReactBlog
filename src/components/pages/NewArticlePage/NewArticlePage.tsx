@@ -5,7 +5,7 @@ import { Alert, Spin } from 'antd';
 import { connect } from 'react-redux';
 import styles from './NewArticlePage.module.scss';
 import FormArticle from '../../layouts/Form/FormArticle/FormArticle';
-import { ArticleData, StateData, UserData } from '../../../redux/reducer';
+import { ArticleData, StateData, UserData } from '../../../redux/d';
 import ProductionReady, { EditArticleData } from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';
 
@@ -19,20 +19,17 @@ const NewArticlePage = ({ createArticle, user: authUser }: NewArticlePageProps) 
   const [fetchingError, setFetchingError] = useState<string>('');
   const history = useHistory();
 
-  const onSubmit = (formArticleData: EditArticleData) => {
+  const onSubmit = async (formArticleData: EditArticleData) => {
     setFetchingError('');
     setIsFetching(true);
-
-    createArticle(formArticleData, authUser?.token || '')
-      .then(async (article: ArticleData) => {
-        history.push(`/articles/${article.slug}/edit`);
-      })
-      .catch((error: Error) => {
-        setFetchingError(error.message);
-      })
-      .finally(() => {
-        setIsFetching(false);
-      });
+    try {
+      await createArticle(formArticleData, authUser?.token || '');
+      history.push('/');
+    } catch (error) {
+      setFetchingError(error.message);
+    } finally {
+      setIsFetching(false);
+    }
   };
 
   return (

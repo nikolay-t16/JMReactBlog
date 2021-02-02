@@ -11,7 +11,7 @@ import FormSignIn, { FormSignInData } from '../../layouts/Form/FormSignIn/FormSi
 import ProductionReady, { LoginUserData } from '../../../helpers/ProductionReady';
 import WithApi from '../../helpers/WithApi';
 import * as actions from '../../../redux/actions';
-import { StateData, UserData } from '../../../redux/reducer';
+import { StateData, UserData } from '../../../redux/d';
 import ValidationError from '../../../helpers/ValidationError';
 
 type SignInPageProps = {

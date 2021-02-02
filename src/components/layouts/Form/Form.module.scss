@@ -30,3 +30,7 @@
 		color: $primaryColor;
 	}
 }
+
+.link:global(.focus-visible) {
+	@extend %focus;
+}

@@ -65,11 +65,12 @@
       }
 
       &Disabled {
-        opacity: 0.5;
-        cursor: initial;
-        &:hover {
+        opacity: 0.25;
+        cursor: not-allowed;
+        &:hover, &:active {
           @include element-color($textColor);
           color: $textColor;
+          @include element-color($textColor);
         }
       }
 
@@ -83,6 +84,10 @@
         color: $textColor;
       }
     }
+  }
+
+  .likeContainer {
+    display: flex;
   }
 
   &Tags {

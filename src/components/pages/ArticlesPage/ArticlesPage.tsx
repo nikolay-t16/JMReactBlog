@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Alert, Spin } from 'antd';
 
 import styles from './ArticlesPage.module.scss';
 import WithApi from '../../helpers/WithApi';
-import { ArticleData, StateData, UserData } from '../../../redux/reducer';
+import { ArticleData, StateData, UserData } from '../../../redux/d';
 import * as actions from '../../../redux/actions';
 import ProductionReady from '../../../helpers/ProductionReady';
 import settings from '../../../settings.json';
@@ -15,6 +15,7 @@ type ArticlesPageProps = {
   page: number;
   user: UserData | null;
   setArticles: (payload: { articles: ArticleData[]; articlesCount: number }) => void;
+  setPage: (payload: { page: number }) => void;
   fetchArticles: (
     page: number,
     perPage: number,
@@ -22,25 +23,29 @@ type ArticlesPageProps = {
   ) => Promise<{ articles: ArticleData[]; articlesCount: number }>;
 };
 
-const ArticlesPage = ({ page, user, setArticles, fetchArticles }: ArticlesPageProps) => {
+const ArticlesPage = ({ page, user, setArticles, setPage, fetchArticles }: ArticlesPageProps) => {
   const [isFetching, setIsFetching] = useState(false);
   const [fetchingError, setFetchingError] = useState('');
-  const loadPage = useCallback(async () => {
-    try {
-      setIsFetching(true);
-      const response = await fetchArticles(page, settings.articlesPerPage, user?.token || '');
-      setArticles({ ...response });
-      setFetchingError('');
-    } catch (error) {
-      setFetchingError(error.message);
-    } finally {
-      setIsFetching(false);
-    }
-  }, [fetchArticles, page, setArticles, user]);
 
   useEffect(() => {
+    setPage({ page: 1 });
+  }, [setPage]);
+
+  useEffect(() => {
+    const loadPage = async () => {
+      try {
+        setIsFetching(true);
+        const response = await fetchArticles(page, settings.articlesPerPage, user?.token || '');
+        setArticles({ ...response });
+        setFetchingError('');
+      } catch (error) {
+        setFetchingError(error.message);
+      } finally {
+        setIsFetching(false);
+      }
+    };
     loadPage();
-  }, [loadPage]);
+  }, [fetchArticles, page, setArticles, user?.token]);
 
   if (isFetching) {
     return (
@@ -75,7 +80,7 @@ const ArticlesPageWithApi = WithApi(mapMethodsToProps)(ArticlesPage);
 export default connect(
   ({ page, user }: StateData) => ({ page, user }),
   (dispatch) => {
-    const { setArticles } = bindActionCreators(actions, dispatch);
-    return { setArticles };
+    const { setArticles, setPage } = bindActionCreators(actions, dispatch);
+    return { setArticles, setPage };
   },
 )(ArticlesPageWithApi);

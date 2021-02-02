@@ -1,4 +1,4 @@
-import { ArticleData, UserData } from '../redux/reducer';
+import { ArticleData, UserData } from '../redux/d';
 import ValidationError from './ValidationError';
 
 export type RegisterUserData = {

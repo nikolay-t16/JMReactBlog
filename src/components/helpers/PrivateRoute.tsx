@@ -1,12 +1,14 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { StateData } from '../../redux/reducer';
+import { useSelector } from 'react-redux';
+import { StateData } from '../../redux/d';
 
-const PrivateRoute = ({ component, isAuth, ...rest }: any) => {
+const PrivateRoute = ({ component, ...rest }: any) => {
+  const isAuth = useSelector<StateData>((state) => state.user != null);
+
   const routeComponent = (props: any) =>
     isAuth ? React.createElement(component, props) : <Redirect to={{ pathname: '/sign-in' }} />;
   return <Route {...rest} render={routeComponent} />;
 };
 
-export default connect(({ user }: StateData) => ({ isAuth: user != null }))(PrivateRoute);
+export default PrivateRoute;

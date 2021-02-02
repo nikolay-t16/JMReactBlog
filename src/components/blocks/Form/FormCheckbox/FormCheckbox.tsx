@@ -13,7 +13,7 @@ type FormCheckboxProps = {
 const FormCheckbox = ({ name, label, refValidation, error }: FormCheckboxProps) => (
   <div>
     <label className={styles.root}>
-      <input className={styles.input} type="checkbox" name={name} ref={refValidation} />
+      <input className={styles.input} type="checkbox" name={name} ref={refValidation} value={1} />
       <span className={classNames(styles.checkbox, { [styles.checkboxError]: error })} />
       <span className={styles.label}>{label}</span>
     </label>

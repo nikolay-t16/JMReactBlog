@@ -8,7 +8,7 @@ import settings from '../../../settings.json';
 
 import ArticleListItem from './ArticleListItem/ArticleListItem';
 import * as actions from '../../../redux/actions';
-import { ArticleData, StateData } from '../../../redux/reducer';
+import { ArticleData, StateData } from '../../../redux/d';
 
 type ArticleListProps = {
   page: number;
@@ -46,7 +46,7 @@ const ArticleList = ({ articles, articlesCount, page, setPage }: ArticleListProp
   return (
     <div className={styles.root}>
       {articlesNode}
-      {totalPages > 2 ? paginationNode : null}
+      {totalPages > 2 && paginationNode}
     </div>
   );
 };
